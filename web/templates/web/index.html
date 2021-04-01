@@ -1,0 +1,596 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% block title %}Rudra Automobiles{% endblock %}
+{% block css %}
+    <link href="{% static 'css/creative.min.css' %}" rel="stylesheet" type="text/css">
+    <style>
+           .col-md-3
+          {
+          display: inline-block;
+          margin-left:-4px;
+          }
+
+          .carousel-indicators .active {
+          background-color: white;
+            }
+
+          .col-md-3 img{
+          width: auto;
+          height:150px;
+          }
+
+          h4 {
+          Font-family: roboto,Sans-Serif,Arial;
+          }
+          h5 {
+            text-decoration: underline;
+            -webkit-text-decoration-color: #f3565d; /* Safari */
+            text-decoration-color: #f3565d;
+            }
+
+          .bg-car {
+           padding: 2rem 0;
+            }
+
+           .bg-blue {
+            background-color: #2e3967; !important
+            }
+
+           .bg-primary {
+           padding: 2rem 0;
+           }
+
+          body .carousel-indicator li{
+          background-color: white;
+          }
+
+          body .carousel-indicators{
+          bottom: -40px;
+          }
+
+           .carousel-indicators li {
+           background-color: blue;
+          }
+
+          .carousel-control-prev,
+          .carousel-control-next {
+
+            padding-top:155px;
+            width: 50px;
+            height: 50px;
+          }
+
+          body .carousel-control-prev-icon,
+          body .carousel-control-next-icon{
+          background-color: #f3565d ;
+          }
+
+           body .no-padding{
+           padding-left: 0;
+           padding-right: 0;
+           }
+
+                     * {
+           box-sizing: border-box;
+                }
+
+
+            /* Add styles to the form container */
+            .container1 {
+            max-width: 300px;
+            padding: 40px;
+            border-radius:5px;
+            background-color: white;
+             }
+
+            .text-color {
+            color:black;
+            }
+            .btn-custom{
+            border-radius:5px;
+            width: 100%;
+            height: 50px
+            }
+           .border {
+              border: 1px solid black;
+              padding: 10px;
+              width: 200px;
+              height: 50px;
+              border-radius: 2px;
+              color: #292b2c;
+              background-color: white;
+            }
+     </style>
+    {% endblock %}
+    {% block menu %}
+     {% load static %}
+
+    <ul class="navbar-nav ml-auto mb-15">
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#newArrival">Locations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#cars">Catalogue</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Finance</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+<!--        {% if user.is_authenticated %}-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link js-scroll-trigger" href="{% url 'web:dashboard' %}">Welcome, {{ user.last_name }}</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link js-scroll-trigger" href="{% url 'web:logout' %}">Logout</a>-->
+<!--            </li>-->
+<!--        {% else %}-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link js-scroll-trigger" href="{% url 'web:login' %}">Login</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link js-scroll-trigger" href="{% url 'web:register' %}">Register</a>-->
+<!--            </li>-->
+<!--        {% endif %}-->
+    </ul>
+
+    {% endblock %}
+
+    {% block body %}
+    <header class=" container masthead text-white d-flex">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <form method='get' action="/searchcar" class="container1 text-color">
+                        <h4><strong>Find your right car </strong></h4>
+<!--                        <label class="radio-inline"> <input style="margin-right:10px;"  type="radio" value="optradio" name="rbudget" checked>By Budget</label>-->
+<!--                        <label class="radio-inline" style="margin-left:10px;"> <input style="margin-right:10px;" value="optradio" type="radio" name="rbrand">By Brand</label>-->
+                        <label class="radio-inline mt-3"><input style="margin-right:10px;" type="radio" name="optradio" value="budget" checked>By Budget</label>
+                        <label class="radio-inline mt-3" style="margin-left:25px;"><input style="margin-right:10px;" value="brand" type="radio" name="optradio">By Brand</label>
+<!--                        <br>-->
+                        <select class="custom-select select custom-select-md budget mt-3" name="price">
+                          <option selected>SelectBudget</option>
+                          <option value="1-5">1-5 Lakhs</option>
+                          <option value="5-10">5-10 Lakhs</option>
+                          <option value="10-15">10-15 Lakhs</option>
+                          <option value="15-20">15-20 Lakhs</option>
+
+                        </select>
+                        <select class="custom-select select custom-select-md brand mt-3" name="brand">
+                          <option selected>SelectBrand</option>
+                          <option value="Maruti">Maruti</option>
+                          <option value="Hyundai">Hyundai</option>
+                          <option value="Honda">Honda</option>
+                          <option value="Tata">Tata</option>
+                          <option value="Mahindra">Mahindra</option>
+                          <option value="Renault">Renault</option>
+                          <option value="Ford">Ford</option>
+                          <option value="Nissan">Nissan</option>
+                          <option value="Datsun">Datsun</option>
+                          <option value="Toyota">Toyota</option>
+                          <option value="MG">MG</option>
+                          <option value="Kia">Kia</option>
+                        </select>
+                        <select class="custom-select custom-select-md vehicle mt-4" id="vehicle" name="vehicle">
+                          <option selected>Vehicle Type</option>
+                          <option value="Hatchback">Hatchback</option>
+                          <option value="Sedan">Sedan</option>
+                          <option value="SUV">SUV</option>
+                          <option value="MUV">MUV</option>
+                          <option value="Luxury">Luxury</option>
+                        </select>
+
+
+                        <div>
+                            <button class="btn btn-primary btn-custom js-scroll-trigger mt-4" type="submit" >Search</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-lg-6 mx-auto">
+                    <h4 class="text-uppercase">
+                        <strong>Welcome To Rudra Automobiles!</strong>
+                    </h4>
+                    <hr>
+                    <p class="text-bold mb-4">A Technical & Financial Adviser.</p>
+                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="{% url 'web:cars' %}">All cars</a>
+                </div>
+            </div>
+        </div>
+ </header>
+
+    <section class="container bg-car" id="cars">
+       <div class="container">
+        <h5 style="margin-left:20px;">New</h5>
+        <div id="multi-item-car" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+
+            <!--First slide-->
+            <div class="carousel-item active">
+
+                {% for i in car %}
+              <div class="col-md-3">
+                <div class="card mb-2">
+                  <img class="card-img-top align-items-center"
+                    src='/media/{{i.picture}}'
+                    alt="Card image cap">
+                  <div class="card-body">
+                    <h6 class="card-title">{{i.brand}} {{i.name}}</h6>
+                    <p class="card-text">Rs.{{i.price}} Lakhs</p>
+                    <a class="btn btn-primary" href="/car/{{i.id}}" onclick="location.href='?key='local+this.href; return:false">Details</a>
+                  </div>
+                </div>
+              </div>
+                 {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div><div class="carousel-item">
+                 {% endif %}
+              {% endfor %}
+                    </div>
+          </div>
+            <!--Controls-->
+          <div>
+            <a class="carousel-control-prev" style="width:50px , height:50px;" href="#multi-item-car" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span></a>
+            <a class="carousel-control-next"  href="#multi-item-car" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span></a>
+          </div>
+        </div>
+       </div>
+          <!--/.Controls-->
+    </section>
+
+    <section class="container bg-car">
+        <div class="container">
+            <div class="tabbable-panel">
+		        <div class="tabbable-line">
+                <ul class="nav nav-tabs" style="border-bottom: 1px solid #f05f40; padding-left:30px;">
+                    <li class="active"><a style="color:black;" href="#hatchback" data-toggle="tab">Hatchback</a></li>
+                    <li><a style="color:black; margin-left:10px;" href="#Sedan" data-toggle="tab">Sedan</a></li>
+                    <li><a style="color:black; margin-left:10px;" href="#SUV" data-toggle="tab">SUV</a></li>
+                    <li><a style="color:black; margin-left:10px;" href="#MUV" data-toggle="tab">MUV</a></li>
+                    <li><a style="color:black; margin-left:10px;" href="#Luxury" data-toggle="tab">Luxury</a></li>
+                </ul>
+			    <div class="tab-content mt-3">
+				    <div class="tab-pane active" id="hatchback">
+					    <div class="container">
+                            <div id="multi-item-car1" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                     <!--Slides-->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+
+                                    {% for i in carHatchback %}
+
+                                    <div class="col-md-3">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top align-items-center" src='/media/{{i.picture}}' alt="Card image cap">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{i.brand}} {{i.name}}</h6>
+                                                <p class="card-text">Rs.{{i.price}} Lakhs</p>
+                                                <a class="btn btn-primary" href="/car/{{i.id}}" onclick="location.href='?key='local+this.href; return:false">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                                </div><div class="carousel-item">
+                                    {% endif %}
+                                    {% endfor %}
+                            </div>
+                        </div>
+
+                                        <!--Controls-->
+
+                        <a class="carousel-control-prev" href="#multi-item-car1" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span></a>
+                        <a class="carousel-control-next"  href="#multi-item-car1" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span></a>
+                            </div>
+                </div>
+            </div>
+
+                    <div class="tab-pane" id="Sedan">
+				        <div class="container">
+                            <div id="multi-item-car2" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                                    <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+
+                                        {% for i in carSedan %}
+                                        <div class="col-md-3">
+                                            <div class="card mb-2">
+                                                <img class="card-img-top align-items-center" src='/media/{{i.picture}}' alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">{{i.brand}} {{i.name}}</h6>
+                                                    <p class="card-text">Rs.{{i.price}} Lakhs</p>
+                                                    <a class="btn btn-primary" href="/car/{{i.id}}" onclick="location.href='?key='local+this.href; return:false">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                                    </div><div class="carousel-item">
+                                            {% endif %}
+                                            {% endfor %}
+                                                </div>
+                                </div>
+
+                                         <!--Controls-->
+
+                                <a class="carousel-control-prev" href="#multi-item-car1" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span></a>
+                                <a class="carousel-control-next"  href="#multi-item-car1" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span></a>
+                            </div>
+                            </div>
+                                    <!--/.Controls-->
+				    </div>
+
+
+                    <div class="tab-pane" id="SUV">
+				        <div class="container">
+                            <div id="multi-item-car3" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                                    <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+
+                                    <div class="carousel-item active">
+
+                                    {% for i in carSuv %}
+                                    <div class="col-md-3">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top align-items-center" src='/media/{{i.picture}}' alt="Card image cap">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{i.brand}} {{i.name}}</h6>
+                                                <p class="card-text">Rs.{{i.price}} Lakhs</p>
+                                                <a class="btn btn-primary" href="/car/{{i.id}}" onclick="location.href='?key='local+this.href; return:false">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                                </div><div class="carousel-item">
+                                    {% endif %}
+                                    {% endfor %}
+                            </div>
+                        </div>
+                                        <!--Controls-->
+
+                        <a class="carousel-control-prev" href="#multi-item-car3" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span></a>
+                        <a class="carousel-control-next"  href="#multi-item-car3" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span>
+                         <span class="sr-only">Next</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="MUV">
+				        <div class="container">
+
+                        <div id="multi-item-car4" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                                <!--Slides-->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+
+                                    {% for i in carMuv %}
+                                    <div class="col-md-3">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top align-items-center" src='/media/{{i.picture}}' alt="Card image cap">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{i.brand}} {{i.name}}</h6>
+                                                <p class="card-text">Rs.{{i.price}} Lakhs</p>
+                                                <a class="btn btn-primary" href="/car/{{i.id}}" onclick="location.href='?key='local+this.href; return:false">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                                </div></div><div class="carousel-item">
+                                    {% endif %}
+                                    {% endfor %}
+                            </div>
+                        </div>
+                             <!--Controls-->
+
+                        <a class="carousel-control-prev" href="#multi-item-car4" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span></a>
+                        <a class="carousel-control-next"  href="#multi-item-car4" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span></a>
+                </div>
+                    </div>               <!--/.Controls-->
+				</div>
+
+				<div class="tab-pane" id="Luxury">
+				   <div class="container">
+                       <div id="multi-item-car5" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                         <!--Slides-->
+                            <div class="carousel-inner" role="listbox">
+
+                                <!--First slide-->
+                                <div class="carousel-item active">
+
+                                    {% for i in carLuxury %}
+                                <div class="col-md-3">
+                                    <div class="card mb-2">
+                                        <img class="card-img-top align-items-center" src='/media/{{i.picture}}' alt="Card image cap">
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{i.brand}} {{i.name}}</h6>
+                                            <p class="card-text">Rs.{{i.price}} Lakhs</p>
+                                            <a class="btn btn-primary" href="/car/{{i.id}}" onclick="location.href='?key='local+this.href; return:false">Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                     {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                                    </div><div class="carousel-item">
+                                     {% endif %}
+                                  {% endfor %}
+                                </div>
+                            </div>
+            <!--Controls-->
+
+                       <a class="carousel-control-prev" href="#multi-item-car5" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span></a>
+                        <a class="carousel-control-next"  href="#multi-item-car5" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span></a>
+                   </div>
+                   </div>     <!--/.Controls-->
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+    </section>
+    <section class=" container bg-primary" id="newArrival">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 mx-auto text-center">
+                        <div class="row wcm-list">
+                            <div class="wcm-text-list col">
+                                <div class="col-lg-12 text-center">
+                                    <h2><img src="static/images/iconloc.jpg"><a style="color:black" href="https://www.google.com/maps/dir//rudra+automobiles+patna/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x39ed57fa6c2ab175:0xd2231da6c0f8f686?sa=X&ved=2ahUKEwj0prrf7LfhAhX06XMBHXc3Cu8Q9RcwC3oECA4QCw"> Our Location ( Click Here )</a></h2>
+                                    <hr class="my-2">
+                                </div>
+                                <p><img src="static/images/rudra_loc.png" ></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+<section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">At Your Service</h2>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-automobile fa-4x text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Technical Services</h3>
+                        <p class="text-muted mb-0">We have 15 years of experience in all types of light motor vehicle, that includes expertise in engine, gear and other components that make vehicle live. We provide best service to recognize vehicle fitness to approve engine, gear, body, break its score card. Recognizing originality in vehicle color, non-accidental, ownership under government norms are other aspects where won customer satisfaction. Dial us for more details or write at info@rudraautomobiles.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-money text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Financial Services</h3>
+                        <p class="text-muted mb-0">We work with customer as financial adviser to understand their plan in terms of budget they had planned for used or new car. Rudra Automobiles allied with Hero Fincorp Limited, HDFC Loan, Mahindra Finance, Magma and couple of more leading car loan firms. Some of the opportunities like Flexible Payment, fast processing, loan up to 100%, different payment mode like cash, cheque, online transfer etc depends on loan provider and car score card. Rudra Automobiles help to generate score card get that reviewed with financer to opt maximum loan amount.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-balance-scale text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Compare cars</h3>
+                        <p class="text-muted mb-0">Our website will allow you to compare between cars and let you decide the best car for you.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-life-ring text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Support</h3>
+                        <p class="text-muted mb-0">We provide support for your car, even after your car is delivered to you!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class=" container bg-blue text-white" id="">
+        <div class="container">
+                    <div class="row">
+                        <div class=" counter-col col-lg-3 col-md-6 col-sm-12">
+                            <div class="employees counter-col-inner">
+                                <span class="counter_icon"> <i class="fa fa-car fa-4x text-primary mb-3 sr-icons">  </i>  </span>
+                                <h3 class="counter-count">3000</h3>
+                                <h4 class="count_titel"> Vehcles in stock </h4>
+                            </div>
+                        </div>
+                        <div class=" counter-col col-lg-3 col-md-6 col-sm-12">
+                            <div class="employees counter-col-inner">
+                                <span class="counter_icon"> <i class="fa fa-users fa-4x text-primary mb-3 sr-icons">  </i>  </span>
+                                <h3 class="counter-count">4500</h3>
+                                <h4 class="count_titel">Happy Customers </h4>
+                            </div>
+                        </div>
+                        <div class=" counter-col col-lg-3 col-md-6 col-sm-12">
+                            <div class="employees counter-col-inner">
+                                <span class="counter_icon"> <i class="fa fa-building fa-4x text-primary mb-3 sr-icons">  </i>  </span>
+                                <h3 class="counter-count">30</h3>
+                                <h4 class="count_titel"> Dealer Branches </h4>
+                            </div>
+                        </div>
+                        <div class=" counter-col col-lg-3 col-md-6 col-sm-12">
+                            <div class="employees counter-col-inner">
+                                <span class="counter_icon"> <i class="fa fa-trophy fa-4x text-primary mb-3 sr-icons">  </i>  </span>
+                                <h3 class="counter-count">1500</h3>
+                                <h4 class="count_titel"> Awards</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+ <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="my-4">
+                    <p class="mb-5">Ready to buy the next car from us? That's great! Give us a call or send us an
+                        email and we will get back to you as soon as possible!</p>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-lg-4 mr-auto text-center">
+                    <i class="fa fa-map-marker fa-3x mb-3 sr-contact"></i>
+                     <p>OFFICE ADDRESS<br>
+                        Rudra Automobiles <br>
+                        Opposite Bailey greens <br>
+                        Apartment, Priyadrshi Nagar <br>
+                        Near Amity University <br>
+                        DPS more Bailey Road <br>
+                        Patna - 801503
+                    </p>
+                </div>
+                <div class="col-lg-4 ml-auto text-center">
+                    <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
+                    <p>7781013139 | 7903558422</p>
+                </div>
+                <div class="col-lg-4 mr-auto text-center">
+                    <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+                    <p>
+                        <a href="mailto:info@rudraautomobiles.com">info@rudraautomobiles.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+ {% block scripts %}
+    <script>
+    $('.brand').hide();
+    var local = window.location.origin;
+
+    $(document).ready(function(){
+    $('input[type="radio"]').click(function(){
+        var inputValue = $(this).attr("value");
+        var targetBox = $("." + inputValue);
+        $(".select").not(targetBox).hide();
+        $(targetBox).attr("selected","selected");
+        (targetBox).show();
+    });
+    });
+
+    </script>
+{% endblock %}

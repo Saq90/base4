@@ -1,0 +1,191 @@
+extends 'web/base.html' %}
+{% load staticfiles %}
+{% block title %}Rudra Automobiles{% endblock %}
+{% block css %}
+    <link href="{% static 'css/creative.min.css' %}" rel="stylesheet" type="text/css">
+    <style>
+           .col-md-3
+          {
+          display: inline-block;
+          margin-left:-4px;
+          }
+
+          .carousel-indicators .active {
+          background-color: white;
+            }
+
+          .col-md-3 img{
+          width: auto;
+          height:150px;
+          }
+
+          h5 {
+            text-decoration: underline;
+            -webkit-text-decoration-color: #f3565d; /* Safari */
+            text-decoration-color: #f3565d;
+            }
+
+          .bg-car {
+           padding: 2rem 0;
+            }
+
+           .bg-primary {
+           padding: 2rem 0;
+           }
+
+          body .carousel-indicator li{
+          background-color: white;
+          }
+
+          body .carousel-indicators{
+          bottom: -40px;
+          }
+
+           .carousel-indicators li {
+           background-color: blue;
+          }
+
+
+          body .fas fa-chevron-left{
+            background-color: blue;
+          }
+
+           body .no-padding{
+           padding-left: 0;
+           padding-right: 0;
+           }
+
+                     * {
+           box-sizing: border-box;
+                }
+
+
+            /* Add styles to the form container */
+            .container1 {
+            max-width: 300px;
+            padding: 40px;
+            background-color: white;
+             }
+
+            .text-color {
+            color:black;
+            }
+
+           .border {
+              border: 1px solid black;
+              padding: 10px;
+              width: 200px;
+              height: 50px;
+              border-radius: 2px;
+              color: #292b2c;
+              background-color: white;
+            }
+     </style>
+    {% endblock %}
+    {% block menu %}
+     {% load static %}
+    <ul class="navbar-nav ml-auto mb-15">
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#newArrival">Locations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#cars">Catalogue</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:dashboard' %}">Welcome, {{ user.last_name }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'web:register' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
+    {% endblock %}
+
+    {% block body %}
+    <header class=" container masthead text-white d-flex">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <form action="" class="container1 text-color">
+                        <h5><strong>Find your right car </strong></h5>
+                        <label class="radio-inline"> <input style="margin-right:10px;"  type="radio" value="budget" name="optradio" checked>By Budget</label>
+                        <label class="radio-inline" style="margin-left:10px;"> <input style="margin-right:10px;" value="brand" type="radio" name="optradio">By Brand</label>
+                        <br>
+                        <div class="dropdown budget ddown">
+                            <button class="btn btn-secondary dropdown-toggle border" style="font-weight:400;" type="button"  id="carbudget" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span id="budget">Select Budget</span><span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu budget-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">1 - 3 Lakhs</a>
+                                <a class="dropdown-item" href="#">3 - 5 Lakhs</a>
+                                <a class="dropdown-item" href="#">5 - 10 Lakhs</a>
+                                <a class="dropdown-item" href="#">10 - 15Lakhs</a>
+                            </div>
+                        </div>
+                        <div class="dropdown brand ddown">
+                            <button class="btn btn-secondary dropdown-toggle border" style="font-weight:400;" type="button"  id="brandname" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span id="brand">Select Brand</span><span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu brand-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Maruti</a>
+                                <a class="dropdown-item" href="#">Yahama</a>
+                                <a class="dropdown-item" href="#">Suzuki</a>
+                                <a class="dropdown-item" href="#">Volks</a>
+                            </div>
+                        </div>
+                        <div class="dropdown bodytype">
+                            <button class="btn btn-secondary dropdown-toggle border" style="border-radius:0;font-weight:400;" type="button" id="bodytype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span id="vehicle">Vehicle Type</span><span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu vehicle-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">HatchBack</a>
+                                <a class="dropdown-item" href="#">Sedan</a>
+                                <a class="dropdown-item" href="#">SUV</a>
+                                <a class="dropdown-item" href="#">MUV</a>
+                                <a class="dropdown-item" href="#">Luxury</a>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="btn btn-primary btn-xl js-scroll-trigger mt-4" href="{% url 'web:cars' %}">Search</a>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-lg-6 mx-auto">
+                    <h4 class="text-uppercase">
+                        <strong>Welcome To Rudra Automobiles!</strong>
+                    </h4>
+                    <hr>
+                    <p class="text-bold mb-4">A Technical & Financial Adviser.</p>
+                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="{% url 'web:cars' %}">All cars</a>
+                </div>
+            </div>
+        </div>
+ </header>
+
+   {% endblock %}
+ {% block scripts %}
+    <script>
+    $('.budget-menu a').click(function(){
+    $('#budget').text($(this).text());
+  });
+  $('.vehicle-menu a').click(function(){
+    $('#vehicle').text($(this).text());
+  });
+    </script>
+{% endblock %}
+
